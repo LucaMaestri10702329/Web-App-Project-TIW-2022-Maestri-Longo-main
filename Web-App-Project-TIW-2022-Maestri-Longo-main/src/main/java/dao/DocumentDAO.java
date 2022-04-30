@@ -58,17 +58,17 @@ public class DocumentDAO {
 	public void createDocument(int idFolder, int idDocument, String nome) throws SQLException{
 
 		String performedAction = " creating a new document";
-		String DocumentInsert = "INSERT INTO project.document (idDocument, nome, idfolder, amount) VALUES(?,?,?)";
+		String UserInsert = "INSERT INTO project.document(idFolder, idDocument, String nome) VALUES(?,?,?)";
 		
 		PreparedStatement preparedStatementInsert = null;	
 	
 		try {
 			connection.setAutoCommit(false);
-			preparedStatementInsert = connection.prepareStatement(DocumentInsert);
+			preparedStatementInsert = connection.prepareStatement(UserInsert);
 		
 			preparedStatementInsert.setInt(1, idFolder);
-			preparedStatementInsert.setString(2, nome);
-			preparedStatementInsert.setInt(3, idDocument);
+			preparedStatementInsert.setInt(2, idDocument);
+			preparedStatementInsert.setString(3, nome);
 			preparedStatementInsert.executeUpdate();
 			
 			connection.commit();

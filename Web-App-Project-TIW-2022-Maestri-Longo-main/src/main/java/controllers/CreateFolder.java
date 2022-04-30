@@ -31,13 +31,13 @@ import utils.TemplateHandler;
  * Servlet implementation class ToRegisterPage
  */
 @WebServlet("/CreateDocument")
-public class CreateDocument extends HttpServlet {
+public class CreateFolder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	private Connection connection;
 	private String accountUsername;
 	
-	 public CreateDocument() {
+	 public CreateFolder() {
 	        super();
 	        // TODO Auto-generated constructor stub
 	    }
@@ -66,7 +66,7 @@ public class CreateDocument extends HttpServlet {
 			
 			request.setAttribute("reason", reasonOfFailure);
 			request.setAttribute("accountId", accountUsername);
-			forward(request, response, PathUtils.pathToMoveDocumentFailed);
+			forward(request, response, PathUtils.pathToCreateFolderFailed);
 			return;
 		}
 		
@@ -91,20 +91,21 @@ public class CreateDocument extends HttpServlet {
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			String sourceUsername = request.getParameter("sourceUsername");
-			String nome = request.getParameter("nome");
-			String destFolderString = request.getParameter("destFolder");
-			String idDocumentString = request.getParameter("idDocument");
+			String name = request.getParameter("name");
+			String idFolderString = request.getParameter("destFolder");
+			String idFolderMotherString = request.getParameter("ifFolderMother");
 			
-			if(sourceUsername == null || nome == null || destFolderString == null) {
+			if(sourceUsername == null || name == null || idFolderString == null) {
 				forwardToErrorPage(request, response, "Some data requested is null, when making a transfer");
 				return;
 			}
 			
-			int destFolder;
-			int idDocument;
+			int idFolder;
+			int idFolderMother;
 			try {
-				destFolder = Integer.parseInt(destFolderString);
-				idDocument = Integer.parseInt(idDocumentString);
+				idFolder = Integer.parseInt(idFolderString);
+				idFolderMother = Integer.parseInt(idFolderMotherString);
+				
 			}catch (NumberFormatException e) {
 				forwardToErrorPage(request, response, "Some values requested are not numbers, when making a transfer");
 				return;
@@ -131,22 +132,23 @@ public class CreateDocument extends HttpServlet {
 				forwardToTransferFailedPage(request, response, "The destination owner is not the current user");
 				return;
 			}
-			DocumentDAO documentDAO = new DocumentDAO(connection);
+			FolderDAO folderDAO = new FolderDAO(connection);
 			try {
-				documentDAO.createDocument(destFolder, 0, nome);
+				folderDAO.createFolder(idFolder,idFolderMother,name,sourceUsername);
 			} catch (SQLException e) {
 				forwardToErrorPage(request, response, e.getMessage());
 				return;		
 			}
 			
-			Document document = new Document();
-			document.setIdDocument(idDocument);
-			document.setIdFolder(destFolder);
-			document.setNome(nome);
+			Folder folder = new Folder();
+			folder.setIdFolder(idFolder);
+			folder.setIdFolderMother(idFolderMother);
+			folder.setName(name);
 			
-			session.setAttribute("document", document);
-			session.setAttribute("sourceAccount", sourceAccount);
-			session.setAttribute("documentInCreation", false);
+			session.setAttribute("idFolder", idFolder);
+			session.setAttribute("idFolderMother", idFolderMother);
+			
+			session.setAttribute("folderInCreation", false);
 			
 			response.sendRedirect(getServletContext().getContextPath() + PathUtils.pathToMoveDocumentConfirmedPage);
 			}

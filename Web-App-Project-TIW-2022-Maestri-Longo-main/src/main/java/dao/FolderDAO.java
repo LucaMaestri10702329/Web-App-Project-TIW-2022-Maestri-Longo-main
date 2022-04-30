@@ -34,7 +34,7 @@ public class FolderDAO {
 				while(resultSet.next()) {
 					Folder folder = new Folder();
 					folder.setIdFolder(resultSet.getInt("idFolder"));
-					folder.setIdFolderMother(resultSet.getString("idFolderMother"));
+					folder.setIdFolderMother(resultSet.getInt("idFolderMother"));
 					folder.setName(resultSet.getString("name"));
 					folder.setIdUsername(resultSet.getString("idUser"));
 					
@@ -111,7 +111,7 @@ public class FolderDAO {
 				while(resultSet.next()) {
 					Folder folder = new Folder();
 					folder.setIdFolder(resultSet.getInt("idFolder"));
-					folder.setIdFolderMother(resultSet.getString("idFolderMother"));
+					folder.setIdFolderMother(resultSet.getInt("idFolderMother"));
 					folder.setName(resultSet.getString("name"));
 					folder.setIdUsername(resultSet.getString("idUser"));
 					

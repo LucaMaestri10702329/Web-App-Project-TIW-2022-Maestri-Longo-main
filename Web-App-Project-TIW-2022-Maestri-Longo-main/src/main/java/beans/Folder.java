@@ -4,7 +4,7 @@ public class Folder {
 	
 	private int IdFolder;
 	private String IdUsername;
-	private String IdFolderMother;
+	private int IdFolderMother;
 	private String name;
 	
 	public int getIdFolder() {
@@ -19,10 +19,10 @@ public class Folder {
 	public void setIdUsername(String idUsername) {
 		IdUsername = idUsername;
 	}
-	public String getIdFolderMother() {
+	public int getIdFolderMother() {
 		return IdFolderMother;
 	}
-	public void setIdFolderMother(String idFolderMother) {
+	public void setIdFolderMother(int idFolderMother) {
 		IdFolderMother = idFolderMother;
 	}
 	public String getName() {
