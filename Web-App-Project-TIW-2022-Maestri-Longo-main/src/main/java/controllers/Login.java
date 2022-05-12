@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
 		}
 		
 		if(user == null) {
-			request.setAttribute("warning", "Email or password incorrect!");
+			request.setAttribute("warning", "Username or password incorrect!");
 			forward(request, response, PathUtils.pathToLoginPage);
 			return;
 		}
