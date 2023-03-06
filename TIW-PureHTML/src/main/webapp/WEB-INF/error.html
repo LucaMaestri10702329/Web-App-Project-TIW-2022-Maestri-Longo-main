@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+	<title>Error page</title>
+</head>
+<body>
+	<div> Error page</div>
+	<div th:replace="/WEB-INF/header :: header"> </div>
+
+	<div class="error-div">
+	
+		<div class="error-title">An error occured</div>
+		<div class="error-name">
+			Your error is: <b><span th:text="${error}">sample error</span></b>
+		</div>
+		<div th:if="${session.currentUser == null}">
+			<hr>
+			<a th:href="@{/}">Press here to go back to the login page</a>
+		</div>
+	</div>
+</body>
+</html>

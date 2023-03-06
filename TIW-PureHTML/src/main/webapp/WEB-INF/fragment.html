@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+ 	<!--/*  declare parameterized fragment called "list" */-->
+	<div th:fragment="list(folder)">
+	
+		<div th:if="${folder.isTop == true}" th:class="(${folder.isTop}) ? 'top'">
+
+			<span th:text="${folder.name + ' ' + folder.date + ' ' + folder.id}"></span>
+			
+		</div>
+		<div th:if="${seleziona == true}" >
+		<ul>
+		
+			<li th:each="child : ${folder.subfolders}">
+			<div th:if="${child.id == currentDocument.folderId}">
+				<span th:text="${child.name}"></span>
+			</div>
+			<div th:if="${child.id != currentDocument.folderId}">
+		     <a th:href="@{/UpdateDocument(folderId=${child.getId()},documentId=${currentDocument.getId()})}"><span th:text="${child.name}" ></span></a>
+			</div>
+			<ul th:replace="this::list (${child})"></ul></li>
+		</ul>
+		</div>
+		<div th:if="${seleziona != true}" >		
+		<ul  class="subpart">
+	
+			<li th:each="child : ${folder.subfolders}">
+		     <a th:href="@{/GoToDocument(folderId=${child.getId()})}"><span th:text="${child.name}" ></span></a> <span th:text="${child.id}" ></span>
+			<ul th:replace="this::list (${child})"></ul></li>
+		</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>

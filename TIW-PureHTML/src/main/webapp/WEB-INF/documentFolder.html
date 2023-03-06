@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+</head>	
+<body>
+ 	<!--/*  declare parameterized fragment called "list" */-->
+	<div th:fragment="list(document)">
+
+		<div>
+			<span th:text="${document.getName()}"></span>
+			<a th:href="@{/Access(documentId=${document.getId()})}">Access</a>	
+			<a th:href="@{/Move(documentId=${document.getId()})}">Move</a>	
+		</div>
+	</div>
+
+</body>
+
+</html>

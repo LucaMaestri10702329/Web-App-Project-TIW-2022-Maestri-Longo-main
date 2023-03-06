@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+<title>Drive Home Page</title>
+</head>
+<body>
+
+	
+	<h1>Welcome to your Drive Homepage!</h1>
+	<div th:replace="/WEB-INF/header :: header"> </div>
+	<div th:if="${seleziona == true}" >
+
+			<p> You're moving the document <b><span th:text="${currentDocument.name}"></span></b> from subfolder <b><span th:text="${currentFolder.name}"></span></b>. <br> Select the destination subfolder: </p>
+
+		</div>
+	<div class="login-div purple-div">
+	<ul>
+		<!--/* the product parameter to use in the fragment is the current child */-->
+		<li th:each="folder : ${topFolders}"
+			th:insert="@{WEB-INF/fragment.html} :: list (folder)"></li>
+	</ul>
+	<a class="manage-link" th:href="@{/GoToManagePage}">Manage Content</a>
+	</div>
+</body>
+</html>

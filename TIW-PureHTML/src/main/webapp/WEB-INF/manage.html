@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+	<link rel="stylesheet" type="text/css" href="../css/login.css" th:href="@{/css/login.css}"/>
+	<title>Manage Content</title>
+</head>
+<body>
+	<h1>Add something to your Drive</h1>
+	<div th:replace="/WEB-INF/header :: header"> </div>
+	
+	<div class="login-div purple-div">
+		<div class="login-title">Create a new Folder</div>
+		<hr>
+		<form class="login-form" method="POST" th:action="@{/CreateFolder}">
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" placeholder="Enter the folder name" name="name"  required>
+			</div>
+			<div class="form-group">
+				<label for="date">User Code</label>
+				<input readonly type="number" th:value="${session.currentUser.id}" name="userId" required>
+			</div>
+			<button class="btn btn-large btn-purple" type="submit">Create Folder</button>
+		</form>
+		<hr>
+		<div class="warning-message" th:if="${warning}">
+			<span th:text="${warning}">Some data is not valid!</span>
+		</div>
+	</div>
+	
+	<div class="login-div purple-div">
+		<div class="login-title">Create a new SubFolder</div>
+		<hr>
+		<form class="login-form" method="POST" th:action="@{/CreateSubFolder}">
+			<div class="form-group">
+				<label for="nameS">Name</label>
+				<input type="text" placeholder="Enter the subfolder name" name="nameS"  required>
+			</div>
+			<div class="form-group">
+				<label for="intS">User Code</label>
+				<input readonly type="number" th:value="${session.currentUser.id}" name="userIdS" required>
+			</div>
+			<div class="form-group">
+				<label for="intS">Parent Folder</label>
+				<select
+						name="idFatherS" id="idFatherS">
+						<option th:each="folder : ${topFolders}" th:value="${folder.id}"
+							th:text="${folder.name}"></option>
+				</select>
+			</div>
+			<button class="btn btn-large btn-purple" type="submit">Create SubFolder</button>
+		</form>
+		<hr>
+		<div class="warning-message" th:if="${warning}">
+			<span th:text="${warning}">Some data is not valid!</span>
+		</div>
+	</div>
+	
+	
+	<div class="login-div purple-div">
+		<div class="login-title">Create a new Document</div>
+		<hr>
+		<form class="login-form" method="POST" th:action="@{/CreateDocument}">
+			<div class="form-group">
+				<label for="nameD">Name</label>
+				<input type="text" placeholder="Enter the document name" name="nameD"  required>
+			</div>
+			<div class="form-group">
+				<label for="summaryD">Summary</label>
+				<input type="text" placeholder="Enter the  document summary" name="summaryD"  required>
+			</div>
+			<div class="form-group">
+				<label for="typeD">Type</label>
+				<input type="text" placeholder="Enter the document type" name="typeD"  required>
+			</div>
+			<div class="form-group">
+				<label for="intS">Parent Subfolder</label>
+				<select
+						name="folderIdD" id="folderIdD">
+						<option th:each="folder : ${subFolders}" th:value="${folder.id}"
+							th:text="${folder.name}"></option>
+				</select>
+			</div>
+			<button class="btn btn-large btn-purple" type="submit">Create Document</button>
+		</form>
+		<hr>
+		<div class="warning-message" th:if="${warning}">
+			<span th:text="${warning}">Some data is not valid!</span>
+		</div>
+	</div>
+</body>
+</html>

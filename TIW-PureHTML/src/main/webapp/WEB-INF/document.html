@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+<title>ContentFolder</title>
+</head>
+<body>
+	<div th:replace="/WEB-INF/header :: header"> </div>
+	<div class="login-div purple-div">
+	<a th:text="${currentDocument.name}"></a>
+	<ul>
+		<li th:text="${currentDocument.date}"></li>
+		<li th:text="${currentDocument.summary}"></li>
+		<li th:text="${currentDocument.type}"></li>
+	
+	</ul>
+	</div>
+</body>
+</html>

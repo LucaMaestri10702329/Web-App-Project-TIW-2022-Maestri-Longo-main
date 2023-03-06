@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+	<link rel="stylesheet" type="text/css" href="../css/global.css" th:href="@{/css/global.css}" />
+<title>ContentFolder</title>
+</head>
+<body>
+	<div th:replace="/WEB-INF/header :: header"> </div>
+	<div class="login-div purple-div">
+	<a th:text="${currentFolder.name}"></a>
+		<!--/* the product parameter to use in the fragment is the current child */-->
+		<ul>
+		<li th:each="document : ${documents}"
+			th:insert="@{WEB-INF/documentFolder.html} :: list (document)"></li>
+		</ul>
+	</div>		
+</body>
+</html>
